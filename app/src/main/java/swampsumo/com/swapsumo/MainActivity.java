@@ -1,11 +1,15 @@
 package swampsumo.com.swapsumo;
 
+import android.content.Intent;
+import android.net.Uri;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.materialdrawer.AccountHeader;
@@ -19,16 +23,27 @@ import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
-public class MainActivity extends AppCompatActivity {
-    private static final int DRAWER_ITEM_DASHBOARD = 0;
-    private static final int DRAWER_ITEM_SEARCH = 1;
-    private static final int DRAWER_ITEM_MYITEM = 2;
-    private static final int DRAWER_ITEM_MESSAGES = 3;
-    private static final int DRAWER_ITEM_BROWSE = 4;
-    private static final int DRAWER_ITEM_VENDORS = 5;
-    private static final int DRAWER_ITEM_MYTRADES = 6;
+import swampsumo.com.adapters.DashboardPagerAdapter;
+import swampsumo.com.fragments.DashboardFragment;
+import swampsumo.com.fragments.FeedbackFragment;
+import swampsumo.com.fragments.SettingsFragment;
+import swampsumo.com.utils.u.helpers.Constants;
+
+public class MainActivity extends AppCompatActivity implements
+        DashboardFragment.OnFragmentInteractionListener,
+        SettingsFragment.OnFragmentInteractionListener,
+        FeedbackFragment.OnFragmentInteractionListener{
+    private static final int DRAWER_ITEM_DASHBOARD = 1;
+    private static final int DRAWER_ITEM_SEARCH = 2;
+    private static final int DRAWER_ITEM_MYITEM = 3;
+    private static final int DRAWER_ITEM_MESSAGES = 4;
+    private static final int DRAWER_ITEM_BROWSE = 8;
+    private static final int DRAWER_ITEM_VENDORS = 6;
+    private static final int DRAWER_ITEM_MYTRADES = 7;
 
     private Drawer drawer;
+    Bundle savedInstanceState;
+    private FragmentTransaction fragmentTransaction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +94,8 @@ public class MainActivity extends AppCompatActivity {
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+
+                        displayView(position);
                         return false;
                     }
 
@@ -87,9 +104,36 @@ public class MainActivity extends AppCompatActivity {
                 .withSavedInstance(savedInstanceState);
 
         drawer = builder.build();
+        displayView(-1);
 
     }
 
+
+    private void displayView(int position) {
+        // update the main content by replacing fragments
+        Fragment fragment = null;
+        String title = "";
+
+        switch (position) {
+            case DRAWER_ITEM_DASHBOARD:
+                //startActivity(new Intent(this, HomeActivity.class));
+                break;
+            default:
+                fragment = new DashboardFragment().newInstance("","");
+                title = "Dashboard";
+                break;
+        }
+
+        if (fragment != null) {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.addToBackStack(null);
+            Log.e("app", "geyy");
+            ft.replace(R.id.container, fragment).commit();
+            setTitle(title);
+        }
+
+        drawer.closeDrawer();
+    }
 
 
     @Override
@@ -116,12 +160,27 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-            super.onBackPressed();
+        super.onBackPressed();
 
     }
 
     @Override
     public void onResume(){
         super.onResume();
+    }
+
+    @Override
+    public void onDashboardFragmentInteraction(Uri uri) {
+
+    }
+
+    @Override
+    public void onSettingsFragmentInteraction(Uri uri) {
+
+    }
+
+    @Override
+    public void onFeedbackFragmentInteraction(Uri uri) {
+
     }
 }
