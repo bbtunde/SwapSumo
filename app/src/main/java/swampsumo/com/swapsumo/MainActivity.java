@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements
     private static final int DRAWER_ITEM_MYTRADES = 7;
 
     private Drawer drawer;
-    private String title = "SwapSumo";
+    private String title = "Swap Sumo";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
