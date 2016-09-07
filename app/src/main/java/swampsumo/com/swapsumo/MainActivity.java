@@ -42,8 +42,7 @@ public class MainActivity extends AppCompatActivity implements
     private static final int DRAWER_ITEM_MYTRADES = 7;
 
     private Drawer drawer;
-    Bundle savedInstanceState;
-    private FragmentTransaction fragmentTransaction;
+    private String title = "SwapSumo";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements
     private void displayView(int position) {
         // update the main content by replacing fragments
         Fragment fragment = null;
-        String title = "";
+
 
         switch (position) {
             case DRAWER_ITEM_DASHBOARD:
@@ -127,7 +126,6 @@ public class MainActivity extends AppCompatActivity implements
         if (fragment != null) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.addToBackStack(null);
-            Log.e("app", "geyy");
             ft.replace(R.id.container, fragment).commit();
             setTitle(title);
         }
