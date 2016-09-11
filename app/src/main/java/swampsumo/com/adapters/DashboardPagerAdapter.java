@@ -8,9 +8,11 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.util.Log;
 
 import swampsumo.com.fragments.FeedbackFragment;
 import swampsumo.com.fragments.SettingsFragment;
+import swampsumo.com.utils.u.helpers.Constants;
 
 public class DashboardPagerAdapter extends FragmentPagerAdapter {
 
@@ -33,15 +35,14 @@ public class DashboardPagerAdapter extends FragmentPagerAdapter {
 
         if(position == 0) // if the position is 0 we are returning the First tab
         {
-
+            Log.e(Constants.TAG, "settings clicked");
             SettingsFragment tab1 = new SettingsFragment();
             return tab1;
         }
         else             // As we are having 2 tabs if the position is now 0 it must be 1 so we are returning second tab
         {
-
+            Log.e(Constants.TAG, "feedback clicked");
             FeedbackFragment tab2 = new FeedbackFragment();
-
             return tab2;
         }
 

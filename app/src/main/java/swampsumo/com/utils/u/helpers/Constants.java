@@ -5,4 +5,5 @@ package swampsumo.com.utils.u.helpers;
  */
 public class Constants {
     public static final CharSequence Titles[]={"SETTINGS","FEEDBACK"};
+    public static final String TAG = "SS";
 }

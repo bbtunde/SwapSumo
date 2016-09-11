@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity implements
                 .withSavedInstance(savedInstanceState);
 
         drawer = builder.build();
-        displayView(-1);
+
 
     }
 
@@ -112,12 +112,12 @@ public class MainActivity extends AppCompatActivity implements
         // update the main content by replacing fragments
         Fragment fragment = null;
 
-
         switch (position) {
             case DRAWER_ITEM_DASHBOARD:
                 //startActivity(new Intent(this, HomeActivity.class));
                 break;
             default:
+                Log.e(Constants.TAG, "hey");
                 fragment = new DashboardFragment().newInstance("","");
                 title = "Dashboard";
                 break;
@@ -125,7 +125,6 @@ public class MainActivity extends AppCompatActivity implements
 
         if (fragment != null) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.addToBackStack(null);
             ft.replace(R.id.container, fragment).commit();
             setTitle(title);
         }
@@ -164,7 +163,9 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onResume(){
+
         super.onResume();
+        displayView(-1);
     }
 
     @Override

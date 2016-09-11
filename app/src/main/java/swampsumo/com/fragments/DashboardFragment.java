@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,10 +78,11 @@ public class DashboardFragment extends Fragment {
         // Inflate the layout for this fragment
 
         View v =  inflater.inflate(R.layout.fragment_dashboard, container, false);
-        viewPager = (ViewPager)v.findViewById(R.id.pager);
-        tabs = (SlidingTabLayout)v.findViewById(R.id.tabs);
 
-        mAdapter = new DashboardPagerAdapter(getFragmentManager(), Constants.Titles,Constants.Titles.length);
+        ViewPager viewPager = (ViewPager)v.findViewById(R.id.pager);
+        SlidingTabLayout tabs = (SlidingTabLayout)v.findViewById(R.id.tabs);
+
+        DashboardPagerAdapter mAdapter = new DashboardPagerAdapter(getChildFragmentManager(), Constants.Titles,Constants.Titles.length);
 
         viewPager.setAdapter(mAdapter);
 
@@ -97,6 +99,7 @@ public class DashboardFragment extends Fragment {
         });
 
 
+        Log.e(Constants.TAG, "view dashboard");
 
         tabs.setViewPager(viewPager);
 
