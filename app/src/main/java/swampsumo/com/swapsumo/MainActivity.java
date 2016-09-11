@@ -26,20 +26,22 @@ import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import swampsumo.com.adapters.DashboardPagerAdapter;
 import swampsumo.com.fragments.DashboardFragment;
 import swampsumo.com.fragments.FeedbackFragment;
+import swampsumo.com.fragments.SearchFragment;
 import swampsumo.com.fragments.SettingsFragment;
 import swampsumo.com.utils.u.helpers.Constants;
 
 public class MainActivity extends AppCompatActivity implements
         DashboardFragment.OnFragmentInteractionListener,
         SettingsFragment.OnFragmentInteractionListener,
-        FeedbackFragment.OnFragmentInteractionListener{
+        FeedbackFragment.OnFragmentInteractionListener,
+        SearchFragment.OnFragmentInteractionListener{
     private static final int DRAWER_ITEM_DASHBOARD = 1;
-    private static final int DRAWER_ITEM_SEARCH = 2;
+    private static final int DRAWER_ITEM_SEARCH = 4;
     private static final int DRAWER_ITEM_MYITEM = 3;
-    private static final int DRAWER_ITEM_MESSAGES = 4;
+    private static final int DRAWER_ITEM_MESSAGES = 5;
     private static final int DRAWER_ITEM_BROWSE = 8;
-    private static final int DRAWER_ITEM_VENDORS = 6;
-    private static final int DRAWER_ITEM_MYTRADES = 7;
+    private static final int DRAWER_ITEM_VENDORS = 7;
+    private static final int DRAWER_ITEM_MYTRADES = 6;
 
     private Drawer drawer;
     private String title = "Swap Sumo";
@@ -99,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements
                     }
 
                 })
-                .withSelectedItem(-1)
+                //.withSelectedItem(1)
                 .withSavedInstance(savedInstanceState);
 
         drawer = builder.build();
@@ -111,16 +113,20 @@ public class MainActivity extends AppCompatActivity implements
     private void displayView(int position) {
         // update the main content by replacing fragments
         Fragment fragment = null;
-
+        Log.e(Constants.TAG, "position: " + position);
         switch (position) {
             case DRAWER_ITEM_DASHBOARD:
-                //startActivity(new Intent(this, HomeActivity.class));
-                break;
-            default:
-                Log.e(Constants.TAG, "hey");
+                Log.e(Constants.TAG, "mlm");
                 fragment = new DashboardFragment().newInstance("","");
                 title = "Dashboard";
-                break;
+            break;
+            case DRAWER_ITEM_SEARCH:
+                Log.e(Constants.TAG, "lm");
+                fragment = new SearchFragment().newInstance("","");
+                title = "Search";
+            default:
+
+            break;
         }
 
         if (fragment != null) {
@@ -163,9 +169,8 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onResume(){
-
         super.onResume();
-        displayView(-1);
+        displayView(1);
     }
 
     @Override
@@ -180,6 +185,11 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onFeedbackFragmentInteraction(Uri uri) {
+
+    }
+
+    @Override
+    public void onSearchFragmentInteraction(Uri uri) {
 
     }
 }
